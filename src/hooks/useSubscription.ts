@@ -36,12 +36,13 @@ export function useSubscription(
 	pollInterval = 5000,
 ) {
 	const id = `${contractId}:${topic}`
-	const state = (paging[id] ||= {
-		lastLedgerStart: undefined,
-		pagingToken: undefined,
-	})
 
 	React.useEffect(() => {
+		const state = (paging[id] ||= {
+			lastLedgerStart: undefined,
+			pagingToken: undefined,
+		})
+
 		let timeoutId: NodeJS.Timeout | null = null
 		let stop = false
 
@@ -117,5 +118,5 @@ export function useSubscription(
 			if (timeoutId != null) clearTimeout(timeoutId)
 			stop = true
 		}
-	}, [contractId, topic, onEvent, id, pollInterval, state])
+	}, [contractId, topic, onEvent, id, pollInterval])
 }
